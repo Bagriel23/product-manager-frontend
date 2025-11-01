@@ -62,6 +62,14 @@ function App() {
     }
   };
 
+  const handlePriceChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[0-9]*\.?[0-9]*$/;
+    if (regex.test(value)) {
+      setForm({ ...form, price: value });
+    }
+  };
+
   return (
     <div className="container">
       <h1 className="title">Product Manager</h1>
@@ -81,12 +89,15 @@ function App() {
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
+
+       
         <input
           className="input"
-          type="number"
+          type="text"
+          inputMode="decimal"
           placeholder="Preço"
           value={form.price}
-          onChange={(e) => setForm({ ...form, price: e.target.value })}
+          onChange={handlePriceChange}
         />
 
         <label className="checkbox-label">
@@ -144,7 +155,7 @@ function App() {
               </div>
 
               <button
-                onClick={() => handleDelete(prod.id)}
+                onClick={() => handleDelete(prod._id)}
                 className="delete-btn"
                 title="Remover produto"
               >
